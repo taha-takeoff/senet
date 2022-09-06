@@ -1,0 +1,91 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#map {
+  width: 100%;
+  height: 100vh;
+}
+
+.mapboxgl-ctrl-bottom-left, .mapboxgl-ctrl-bottom-right {
+  display: none;
+}
+
+.mapboxgl-ctrl-group {
+  position: fixed;
+  bottom: 27px;
+  right: 35px;
+  margin: 0 !important;
+  width: 40px;
+  overflow: hidden;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+.mapboxgl-ctrl-group .mapboxgl-ctrl-zoom-in {
+  background: #FAFAFA;
+  box-shadow: 0 4px 13px rgba(0, 0, 0, 0.1);
+  border-radius: 0 !important;
+  height: 40px;
+}
+.mapboxgl-ctrl-group .mapboxgl-ctrl-zoom-in:hover {
+  background: #FAFAFA !important;
+}
+.mapboxgl-ctrl-group .mapboxgl-ctrl-zoom-in span {
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15.1875 8.25C15.1875 8.88281 14.6602 9.41016 14.0625 9.41016H9V14.4727C9 15.0703 8.47266 15.5625 7.875 15.5625C7.24219 15.5625 6.75 15.0703 6.75 14.4727V9.41016H1.6875C1.05469 9.41016 0.5625 8.88281 0.5625 8.25C0.5625 7.65234 1.05469 7.16016 1.6875 7.16016H6.75V2.09766C6.75 1.46484 7.24219 0.9375 7.875 0.9375C8.47266 0.9375 9 1.46484 9 2.09766V7.16016H14.0625C14.6602 7.125 15.1875 7.65234 15.1875 8.25Z' fill='%23FF5900'/%3E%3C/svg%3E%0A") !important;
+}
+.mapboxgl-ctrl-group .mapboxgl-ctrl-zoom-out {
+  background: #FAFAFA;
+  box-shadow: 0 4px 13px rgba(0, 0, 0, 0.1);
+  border-radius: 0 !important;
+  height: 40px;
+}
+.mapboxgl-ctrl-group .mapboxgl-ctrl-zoom-out:hover {
+  background: #FAFAFA !important;
+}
+.mapboxgl-ctrl-group .mapboxgl-ctrl-zoom-out span {
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='3' viewBox='0 0 16 3' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14.0625 2.375H1.6875C1.05469 2.375 0.5625 1.88281 0.5625 1.25C0.5625 0.652344 1.05469 0.125 1.6875 0.125H14.0625C14.6602 0.125 15.1875 0.652344 15.1875 1.25C15.1875 1.88281 14.6602 2.375 14.0625 2.375Z' fill='%23FF5900'/%3E%3C/svg%3E%0A") !important;
+}
+.mapboxgl-ctrl-group .mapboxgl-ctrl-compass {
+  margin-top: 10px;
+  background: #FAFAFA;
+  box-shadow: 0 4px 13px rgba(0, 0, 0, 0.1);
+  border-radius: 0 !important;
+  height: 43px;
+}
+.mapboxgl-ctrl-group .mapboxgl-ctrl-compass:hover {
+  background: #FAFAFA !important;
+}
+.mapboxgl-ctrl-group .mapboxgl-ctrl-compass span {
+  background-image: url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.3125 0.8125C15.6797 0.8125 15.1875 1.33984 15.1875 1.9375V4.57422C13.7812 2.60547 11.4961 1.375 9 1.375C5.66016 1.375 2.74219 3.51953 1.72266 6.68359C1.54688 7.28125 1.86328 7.91406 2.46094 8.08984C3.05859 8.26562 3.69141 7.94922 3.86719 7.35156C4.57031 5.13672 6.64453 3.625 9 3.625C10.7578 3.625 12.375 4.50391 13.3594 5.875H11.8125C11.1797 5.875 10.6875 6.40234 10.6875 7C10.6875 7.63281 11.1797 8.125 11.8125 8.125H16.3125C16.9102 8.125 17.4375 7.63281 17.4375 7V1.9375C17.4375 1.33984 16.9102 0.8125 16.3125 0.8125ZM15.5039 10.4453C14.9062 10.2695 14.2734 10.5859 14.0977 11.1836C13.3945 13.3984 11.3203 14.875 9 14.875C7.20703 14.875 5.58984 14.0312 4.60547 12.625H6.1875C6.78516 12.625 7.3125 12.1328 7.3125 11.5C7.3125 10.9023 6.78516 10.375 6.1875 10.375H1.6875C1.05469 10.375 0.5625 10.9023 0.5625 11.5V16.5625C0.5625 17.1953 1.05469 17.6875 1.6875 17.6875C2.28516 17.6875 2.8125 17.1953 2.8125 16.5625V13.9609C4.18359 15.9297 6.46875 17.125 8.96484 17.125C12.2695 17.125 15.1875 15.0156 16.207 11.8516C16.418 11.2539 16.1016 10.6211 15.5039 10.4453Z' fill='%23FF5900'/%3E%3C/svg%3E%0A") !important;
+}
+.mapboxgl-ctrl-group button {
+  width: 100% !important;
+}
+
+.mapboxgl-popup {
+  max-width: 297px;
+}
+.mapboxgl-popup .mapboxgl-popup-tip {
+  box-shadow: 0 4px 19px rgba(0, 0, 0, 0.2);
+  border: 15px solid transparent;
+}
+.mapboxgl-popup .mapboxgl-popup-content {
+  backgpxround: #FFFFFF;
+  box-shadow: 0 4px 19px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  padding: 20px;
+  overflow: hidden;
+  font-family: "Roboto";
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 28px;
+  letter-spacing: 0.2px;
+  color: #498A49;
+}
+.mapboxgl-popup .mapboxgl-popup-content .mapboxgl-popup-close-button {
+  display: none;
+}
+
+/*# sourceMappingURL=style.css.map */
