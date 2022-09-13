@@ -1,13 +1,27 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFobW91ZC10YWhhIiwiYSI6ImNsN2Vpcm82YTAwdGMzeXBxYTN1NGVkaDUifQ.XtgGBx9IOoMS4MCBJSMcrQ';
 
 
-//map config
-const config = ({
-  lng: -122.4,
-  lat: 37.7923539,
-  zoom: 11.5,
-  fillOpacity: 0.8,
-})
+const readCountriesFile = () => {
+  const rawFile = new XMLHttpRequest();
+  let data;
+  rawFile.open("GET", "./WorldMapUpdate_042022.txt", false);
+  rawFile.onreadystatechange = function () {
+    if (rawFile.readyState === 4) {
+      if (rawFile.status === 200 || rawFile.status === 0) {
+        data = rawFile.responseText;
+        data = data.split(",\n").reduce((acc, el) => {
+          if (!el) return acc
+          const parsingElement = JSON.parse(el.lastIndexOf(",") === el.length - 1 ? el.substring(0, el.lastIndexOf(',')) : el);
+          acc[parsingElement.color] = acc[parsingElement.color] ? [...acc[parsingElement.color], parsingElement.id] : [parsingElement.id]
+          return acc
+        }, {})
+      }
+    }
+  }
+  rawFile.send(null);
+  
+  return data || null;
+}
 
 const map = new mapboxgl.Map({
   container: 'map', // container ID
@@ -20,30 +34,34 @@ const map = new mapboxgl.Map({
 map.on('style.load', () => {
   map.setFog({}); // Set the default atmosphere style
   
+  const countriesData = readCountriesFile();
+  console.log(countriesData)
+  Object.keys(countriesData || {}).forEach(el => {
+    const id = Date.now().toString(36) + Math.random().toString(36).substr(2);
+    map.addLayer(
+        {
+          id,
+          source: {
+            type: 'vector',
+            url: 'mapbox://mapbox.country-boundaries-v1',
+          },
+          'source-layer': 'country_boundaries',
+          type: 'fill',
+          paint: {
+            'fill-color': el,
+            'fill-opacity': 1,
+          },
+        },
+        'country-label'
+    );
+    
+    map.setFilter(id, [
+      "in",
+      "iso_3166_1",
+      ...countriesData[el]
+    ]);
+  })
   
-  // map.addLayer(
-  //     {
-  //       id: 'country-boundaries',
-  //       source: {
-  //         type: 'vector',
-  //         url: 'mapbox://mapbox.country-boundaries-v1',
-  //       },
-  //       'source-layer': 'country_boundaries',
-  //       type: 'fill',
-  //       paint: {
-  //         'fill-color': '#d2361e',
-  //         'fill-opacity': 0.4,
-  //       },
-  //     },
-  //     'country-label'
-  // );
-  //
-  // map.setFilter('country-boundaries', [
-  //   "in",
-  //   "iso_3166_1_alpha_3",
-  //   'NLD',
-  //   'ITA'
-  // ]);
   
   const popup = new mapboxgl.Popup();
   
@@ -68,8 +86,6 @@ map.on('style.load', () => {
   
   
   map.on('click', 'senet-data', (e) => {
-    // console.log("mcndnc", e.lngLat)
-    // console.log("h3Index", e.features[0].properties.h3Index)
     const langLat = h3.cellToLatLng(e.features[0].properties.h3Index)
     popup.setLngLat({
       lat: langLat[0],
