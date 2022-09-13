@@ -1,7 +1,7 @@
 import geojson2h3 from 'https://cdn.skypack.dev/geojson2h3';
 
 
-// sk.eyJ1IjoibWFobW91ZC10YWhhIiwiYSI6ImNsN2Z1b3J0ODBlNHg0MWxxdGdid282ZnEifQ.563LbI29ILCkkAiNCmSlUA
+// mapboxgl.accessToken = 'sk.eyJ1IjoibWFobW91ZC10YWhhIiwiYSI6ImNsN2Z1b3J0ODBlNHg0MWxxdGdid282ZnEifQ.563LbI29ILCkkAiNCmSlUA'
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFobW91ZC10YWhhIiwiYSI6ImNsN2Vpcm82YTAwdGMzeXBxYTN1NGVkaDUifQ.XtgGBx9IOoMS4MCBJSMcrQ';
 
 //read h3 ids from text file
@@ -199,57 +199,57 @@ function renderAreas(map, hexagons, threshold) {
 
 const map = new mapboxgl.Map({
   container: 'map', // container ID
-  style: 'mapbox://styles/mapbox/streets-v11', // style URL
+  style: 'mapbox://styles/mahmoud-taha/cl7k94weg002w14lkwa93p0vg', // style URL
   center: h3.cellToLatLng("882b9b501bfffff").reverse(), // starting position [lng, lat]
-  zoom: 3, // starting zoom
+  zoom: 11, // starting zoom
   projection: 'globe' // display the map as a 3D globe
 });
 
 map.on('style.load', () => {
   map.setFog({}); // Set the default atmosphere style
-  
-  // readTextFile("./helium-data.dat")
-  
-  // ['#ffffcc', '#78c679', '#006837']
-  renderHexes(map, readTextFile("./helium-data.dat"), ['rgba(153, 69, 199, 0.4)', 'rgba(153, 69, 199, 0.6)', 'rgba(153, 69, 199, 0.8)']);
-  
-  // renderHexes(map, hexagons, ['#98EC87', '#6ACC4D', '#6BAD5D']);
-  // renderAreas(map, hexagons, 0.75);
-  
-  
-  const popup = new mapboxgl.Popup();
-  
-  map.on('click', 'h3-hexes-layer', function (e) {
-    
-    // if (map.getZoom() > 14) {
-      popup.setLngLat(e.lngLat)
-          .setHTML(`
-          <p>Lat: ${e.lngLat.lat}</p>
-          <p>Lng: ${e.lngLat.lng}</p>
-          `)
-          .addTo(map);
-    // } else {
-    //   map.flyTo({
-    //     center: [e.lngLat.lng, e.lngLat.lat],
-    //     zoom: 14.5,
-    //     speed: 0.8,
-    //     curve: 0.8,
-    //     easing(t) {
-    //       return t;
-    //     }
-    //   });
-    // }
-  });
-  
-  // Change the cursor to a pointer when the mouse is over the places layer.
-  map.on('mouseenter', 'h3-hexes-layer', () => {
-    map.getCanvas().style.cursor = 'pointer';
-  });
-
-// Change it back to a pointer when it leaves.
-  map.on('mouseleave', 'h3-hexes-layer', () => {
-    map.getCanvas().style.cursor = '';
-  });
+//
+//   // readTextFile("./helium-data.dat")
+//
+//   // ['#ffffcc', '#78c679', '#006837']
+//   renderHexes(map, readTextFile("./helium-data.dat"), ['rgba(153, 69, 199, 0.4)', 'rgba(153, 69, 199, 0.6)', 'rgba(153, 69, 199, 0.8)']);
+//
+//   // renderHexes(map, hexagons, ['#98EC87', '#6ACC4D', '#6BAD5D']);
+//   // renderAreas(map, hexagons, 0.75);
+//
+//
+//   const popup = new mapboxgl.Popup();
+//
+//   map.on('click', 'h3-hexes-layer', function (e) {
+//
+//     // if (map.getZoom() > 14) {
+//       popup.setLngLat(e.lngLat)
+//           .setHTML(`
+//           <p>Lat: ${e.lngLat.lat}</p>
+//           <p>Lng: ${e.lngLat.lng}</p>
+//           `)
+//           .addTo(map);
+//     // } else {
+//     //   map.flyTo({
+//     //     center: [e.lngLat.lng, e.lngLat.lat],
+//     //     zoom: 14.5,
+//     //     speed: 0.8,
+//     //     curve: 0.8,
+//     //     easing(t) {
+//     //       return t;
+//     //     }
+//     //   });
+//     // }
+//   });
+//
+//   // Change the cursor to a pointer when the mouse is over the places layer.
+//   map.on('mouseenter', 'h3-hexes-layer', () => {
+//     map.getCanvas().style.cursor = 'pointer';
+//   });
+//
+// // Change it back to a pointer when it leaves.
+//   map.on('mouseleave', 'h3-hexes-layer', () => {
+//     map.getCanvas().style.cursor = '';
+//   });
 });
 
 // Add zoom and rotation controls to the map.
