@@ -25,15 +25,14 @@ const countriesColors = readCountriesFile();
 
 const world = Globe()
     .polygonsData(countries.features)
-    .polygonCapMaterial(new THREE.Color("rgba(245, 245, 245, 0)"))
-    .polygonStrokeColor(false)
-    .polygonAltitude(0)
+    .polygonCapMaterial("rgba(221, 221, 221, 1)")
+    .polygonAltitude("rgba(221, 221, 221, 1)")
     .onPolygonClick((...e) => {
       console.log("onPolygonClick", e)
     })
     .polygonCapColor("rgba(255,255,255,0)")
     .hexPolygonsData(countries.features)
-    .hexPolygonResolution(3)
+     .hexPolygonResolution(3)
     .hexPolygonMargin(0.3)
     .hexPolygonColor((e) => {
       return countriesColors[e.properties.ISO_A2] || "rgba(221, 221, 221, 1)"

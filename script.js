@@ -54,7 +54,24 @@ map.on('style.load', () => {
         },
         'country-label'
     );
-    
+    map.setPaintProperty(id, 'fill-opacity', [
+      'interpolate',
+// Set the exponential rate of change to 0.5
+      ['exponential', 1],
+      ['zoom'],
+// When zoom is 10, buildings will be 100% transparent.
+      1,
+      1,
+// When zoom is 18 or higher, buildings will be 100% opaque.
+      11,
+      0.5
+    ]);
+    map.setFilter(id, [
+      "in",
+      "iso_3166_1",
+      ...countriesData[el]
+    ]);
+  
     map.setFilter(id, [
       "in",
       "iso_3166_1",
