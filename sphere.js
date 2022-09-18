@@ -24,20 +24,20 @@ const readCountriesFile = () => {
 const countriesColors = readCountriesFile();
 
 //add arcs
-
 const N = 30;
 const arcsData = [...Array(N).keys()].map(() => ({
   startLat: (Math.random() - 0.5) * 180,
   startLng: (Math.random() - 0.5) * 360,
   endLat: (Math.random() - 0.5) * 180,
   endLng: (Math.random() - 0.5) * 360,
-  color: [['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)], ['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)]]
+  color: "#FF5900"
 }));
 
 const world = Globe()
     .arcsData(arcsData)
     .arcColor('color')
     .arcDashLength(1)
+    .arcStroke(0.7)
     .arcDashGap(() => Math.random())
     .arcDashAnimateTime(() => Math.random() * 4000 + 500)
     .hexPolygonsData(countries.features)
@@ -49,10 +49,12 @@ const world = Globe()
     .onHexPolygonClick((...e) => {
       window.location =`/senet/map.html?lng=${e[2].lng}&lat=${e[2].lat}`;
     })
-    
     (document.getElementById('globeViz'));
+
+// pauseAnimation()
 world.backgroundColor("#F5F5F5");
 world.controls().autoRotate = true;
+console.log("world.controls", world.controls())
 world.controls().autoRotateSpeed = 2;
 world.onGlobeClick((lngLat) => {
   window.location =`/senet/map.html?lng=${lngLat.lng}&lat=${lngLat.lat}`;
