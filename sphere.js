@@ -23,28 +23,40 @@ const readCountriesFile = () => {
 }
 const countriesColors = readCountriesFile();
 
+//add arcs
+
+const N = 30;
+const arcsData = [...Array(N).keys()].map(() => ({
+  startLat: (Math.random() - 0.5) * 180,
+  startLng: (Math.random() - 0.5) * 360,
+  endLat: (Math.random() - 0.5) * 180,
+  endLng: (Math.random() - 0.5) * 360,
+  color: [['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)], ['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)]]
+}));
+
 const world = Globe()
-    .polygonsData(countries.features)
-    .polygonCapMaterial("rgba(221, 221, 221, 1)")
-    .polygonAltitude("rgba(221, 221, 221, 1)")
-    .onPolygonClick((...e) => {
-      console.log("onPolygonClick", e)
-    })
-    .polygonCapColor("rgba(255,255,255,0)")
+    .arcsData(arcsData)
+    .arcColor('color')
+    .arcDashLength(1)
+    .arcDashGap(() => Math.random())
+    .arcDashAnimateTime(() => Math.random() * 4000 + 500)
     .hexPolygonsData(countries.features)
-     .hexPolygonResolution(3)
+    .hexPolygonResolution(3)
     .hexPolygonMargin(0.3)
     .hexPolygonColor((e) => {
       return countriesColors[e.properties.ISO_A2] || "rgba(221, 221, 221, 1)"
     })
     .onHexPolygonClick((...e) => {
-      console.log("onHexPolygonClick", e)
+      window.location =`/senet/map.html?lng=${e[2].lng}&lat=${e[2].lat}`;
     })
     
     (document.getElementById('globeViz'));
 world.backgroundColor("#F5F5F5");
 world.controls().autoRotate = true;
-world.controls().autoRotateSpeed = 3;
+world.controls().autoRotateSpeed = 2;
+world.onGlobeClick((lngLat) => {
+  window.location =`/senet/map.html?lng=${lngLat.lng}&lat=${lngLat.lat}`;
+})
 
 const globeMaterial = world.globeMaterial();
 globeMaterial.color = new THREE.Color("rgba(245, 245, 245, 1)");

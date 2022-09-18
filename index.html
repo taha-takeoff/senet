@@ -2,16 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Senet Map</title>
+  <title>Senet Sphere</title>
   <link rel="stylesheet" href="./style.css">
-  <link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet'/>
 </head>
-<body>
-<div id='map'></div>
-<div id='h3-hexes'></div>
 
-<script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
-<script src="https://unpkg.com/h3-js@4.0.0"></script>
-<script src="./script.js" type="module"></script>
+<body>
+<div id="globeViz"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.140.0/three.min.js"></script>
+<script src="//unpkg.com/globe.gl"></script>
+<script src="sphere.js" type="module"></script>
 </body>
 </html>

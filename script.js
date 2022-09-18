@@ -23,11 +23,13 @@ const readCountriesFile = () => {
   return data || null;
 }
 
+const params = new URLSearchParams(window.location.search);
+
 const map = new mapboxgl.Map({
   container: 'map', // container ID
   style: 'mapbox://styles/mahmoud-taha/cl7k94weg002w14lkwa93p0vg', // style URL
-  center: h3.cellToLatLng("882b9b501bfffff").reverse(), // starting position [lng, lat]
-  zoom: 11, // starting zoom
+  center: params.has("lat") ? [params.get("lng"), params.get("lat")] : h3.cellToLatLng("882b9b501bfffff").reverse(), // starting position [lng, lat]
+  zoom: params.has("lat") ? 5 : 11, // starting zoom
   projection: 'globe' // display the map as a 3D globe
 });
 
@@ -35,7 +37,7 @@ map.on('style.load', () => {
   map.setFog({}); // Set the default atmosphere style
   
   const countriesData = readCountriesFile();
-  console.log(countriesData)
+  
   Object.keys(countriesData || {}).forEach(el => {
     const id = Date.now().toString(36) + Math.random().toString(36).substr(2);
     map.addLayer(
@@ -71,7 +73,7 @@ map.on('style.load', () => {
       "iso_3166_1",
       ...countriesData[el]
     ]);
-  
+    
     map.setFilter(id, [
       "in",
       "iso_3166_1",
@@ -81,25 +83,6 @@ map.on('style.load', () => {
   
   
   const popup = new mapboxgl.Popup();
-  
-  map.on('click', 'helium-data', (e) => {
-    popup.setLngLat(e.lngLat)
-        .setHTML(`
-          <p>Lat: ${e.lngLat.lat}</p>
-          <p>Lng: ${e.lngLat.lng}</p>
-          `)
-        .addTo(map);
-  });
-  
-  // Change the cursor to a pointer when the mouse is over the places layer.
-  map.on('mouseenter', 'helium-data', () => {
-    map.getCanvas().style.cursor = 'pointer';
-  });
-
-// Change it back to a pointer when it leaves.
-  map.on('mouseleave', 'helium-data', () => {
-    map.getCanvas().style.cursor = '';
-  });
   
   
   map.on('click', 'senet-data', (e) => {
@@ -128,4 +111,11 @@ map.on('style.load', () => {
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
 
-
+map.addControl(
+    new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl,
+      placeholder: 'Search Postal Code or Location',
+      // marker: false, // Do not use the default marker style
+    })
+);
