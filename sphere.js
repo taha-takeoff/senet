@@ -34,12 +34,12 @@ const arcsData = [...Array(N).keys()].map(() => ({
 }));
 
 const world = Globe()
-    .arcsData(arcsData)
-    .arcColor('color')
-    .arcDashLength(1)
-    .arcStroke(0.7)
-    .arcDashGap(() => Math.random())
-    .arcDashAnimateTime(() => Math.random() * 4000 + 500)
+    // .arcsData(arcsData)
+    // .arcColor('color')
+    // .arcDashLength(1)
+    // .arcStroke(0.7)
+    // .arcDashGap(() => Math.random())
+    // .arcDashAnimateTime(() => Math.random() * 4000 + 500)
     .hexPolygonsData(countries.features)
     .hexPolygonResolution(3)
     .hexPolygonMargin(0.3)
@@ -63,3 +63,10 @@ const globeMaterial = world.globeMaterial();
 globeMaterial.color = new THREE.Color("rgba(245, 245, 245, 1)");
 globeMaterial.emissiveIntensity = 0.1;
 globeMaterial.shininess = 0.7;
+
+document.addEventListener("mousemove", () => {
+  let mousex = event.clientX;
+  let mousey = event.clientY;
+  world.controls().autoRotate = !world.toGlobeCoords(mousex,mousey);
+  document.documentElement.style.cursor= world.toGlobeCoords(mousex,mousey) ? "pointer" : "unset";
+});
