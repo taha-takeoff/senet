@@ -54,7 +54,6 @@ const world = Globe()
 // pauseAnimation()
 world.backgroundColor("#F5F5F5");
 world.controls().autoRotate = true;
-console.log("world.controls", world.controls())
 world.controls().autoRotateSpeed = 2;
 world.onGlobeClick((lngLat) => {
   window.location =`/senet/map.html?lng=${lngLat.lng}&lat=${lngLat.lat}`;
